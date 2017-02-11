@@ -31,6 +31,28 @@
         <dd>
             @Html.DisplayFor(model => model.ManagedSince)
         </dd>
+
+        @for (int i = 0; i < Model.Funds.value.Count; i++)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Funds.value[i].StaticData.Identification.IsinCode)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Funds.value[i].StaticData.Identification.IsinCode)
+            </dd>
+        }
+
+
+        @for (int i = 0; i < Model.Funds.value.Count; i++)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.Funds.value[i].StaticData.Identification.FullName)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Funds.value[i].StaticData.Identification.FullName)
+            </dd>
+        }
+
     </dl>
 </div>
 <div class="row">

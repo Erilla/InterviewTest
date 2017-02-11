@@ -10,6 +10,7 @@ namespace FundsLibrary.InterviewTest.Web.Repositories
         Task Delete(Guid id);
         Task<IEnumerable<FundManager>> GetAll();
         Task<FundManager> Get(Guid id);
+        Task<Funds> GetFunds(Guid id);
         Task<Guid> Put(FundManager content);
         Task<Guid> Post(FundManager content);
     }
@@ -31,6 +32,13 @@ namespace FundsLibrary.InterviewTest.Web.Repositories
         public async Task<FundManager> Get(Guid id)
         {
             return await _client.GetAndReadFromContentGetAsync<FundManager>("api/FundManager/" + id);
+        }
+
+        public async Task<Funds> GetFunds(Guid id)
+        {
+            var uri = "https://www.fundslibrary.co.uk/FundsLibrary.DataApi.WebApi/Securities?$search=" + id.ToString();
+            var key = "ZNMI5P30EXUXV1ULNEAQ";
+            return await _client.GetAndReadFromContentGetAsync<Funds>(uri, key);
         }
 
         public async Task<Guid> Put(FundManager content)

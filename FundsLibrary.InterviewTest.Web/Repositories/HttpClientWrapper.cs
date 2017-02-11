@@ -8,6 +8,7 @@ namespace FundsLibrary.InterviewTest.Web.Repositories
     public interface IHttpClientWrapper
     {
         Task<T> GetAndReadFromContentGetAsync<T>(string requestUri);
+        Task<T> GetAndReadFromContentGetAsync<T>(string requestUri, string key);
         Task<TResponse> PutContentAndGetAsync<TResponse, TPut>(string requestUri, TPut content);
         Task<TResponse> PostContentAndGetAsync<TResponse, TPost>(string requestUri, TPost content);
         Task DeleteContentAsync(string requestUri);
@@ -26,6 +27,21 @@ namespace FundsLibrary.InterviewTest.Web.Repositories
         {
             using (var client = new HttpClient())
             {
+                _SetupClient(client);
+
+                var response = await client.GetAsync(requestUri);
+                response.EnsureSuccessStatusCode();
+                //TODO: Handle non success HTTP codes more gracefully.
+
+                return await response.Content.ReadAsAsync<T>();
+            }
+        }
+
+        public async Task<T> GetAndReadFromContentGetAsync<T>(string requestUri, string key)
+        {
+            using (var client = new HttpClient())
+            {
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", key);
                 _SetupClient(client);
 
                 var response = await client.GetAsync(requestUri);

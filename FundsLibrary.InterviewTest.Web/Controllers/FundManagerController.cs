@@ -62,6 +62,8 @@ namespace FundsLibrary.InterviewTest.Web.Controllers
             {
                 return _UnverifiedFundManagerId($"The Fund Manager id {id.Value} was not found");
             }
+            var funds = await _repository.GetFunds(id.Value);
+            result.Funds = funds;
             return View(result);
         }
 
