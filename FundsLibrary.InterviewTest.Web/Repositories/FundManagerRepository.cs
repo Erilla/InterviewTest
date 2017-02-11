@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FundsLibrary.InterviewTest.Common;
+using System.Configuration;
+using System.Web.Configuration;
 
 namespace FundsLibrary.InterviewTest.Web.Repositories
 {
@@ -36,8 +38,10 @@ namespace FundsLibrary.InterviewTest.Web.Repositories
 
         public async Task<Funds> GetFunds(Guid id)
         {
-            var uri = "https://www.fundslibrary.co.uk/FundsLibrary.DataApi.WebApi/Securities?$search=" + id.ToString();
-            var key = "ZNMI5P30EXUXV1ULNEAQ";
+            
+            var uri = WebConfigurationManager.AppSettings["FundsLibraryUri"].ToString() + "?$search=" + id.ToString();
+            var key = WebConfigurationManager.AppSettings["FundsLibraryApiKey"].ToString();
+
             return await _client.GetAndReadFromContentGetAsync<Funds>(uri, key);
         }
 
