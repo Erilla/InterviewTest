@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using System.Web.Mvc;
 using FundsLibrary.InterviewTest.Common;
 using FundsLibrary.InterviewTest.Web.Repositories;
+using FundsLibrary.InterviewTest.Service;
 using PagedList;
+using System.Collections.Generic;
 
 namespace FundsLibrary.InterviewTest.Web.Controllers
 {
@@ -62,8 +64,39 @@ namespace FundsLibrary.InterviewTest.Web.Controllers
             {
                 return _UnverifiedFundManagerId($"The Fund Manager id {id.Value} was not found");
             }
+
             var funds = await _repository.GetFunds(id.Value);
-            result.Funds = funds;
+            foreach (var value in funds.value)
+            {
+                foreach (var team in value.StaticData.Management.Team)
+                {
+                    if (team.Id == id.Value)
+                    {
+                        if (!String.IsNullOrEmpty(team.Bio))
+                        {
+                            result.Biography = team.Bio;
+                        }
+                        
+                        if (!String.IsNullOrEmpty(team.Photo))
+                        {
+                            result.Photo = team.Photo;
+                        }
+                    }
+                }
+
+                result.SecurityFunds = new List<SecurityFunds>();
+
+                if (!String.IsNullOrEmpty(value.StaticData.Identification.IsinCode))
+                {
+                    SecurityFunds securityFund = new SecurityFunds();
+                    securityFund.IsinCode = value.StaticData.Identification.IsinCode;
+                    securityFund.FullName = value.StaticData.Identification.FullName;
+
+                    result.SecurityFunds.Add(securityFund);
+                }
+            }
+            
+
             return View(result);
         }
 

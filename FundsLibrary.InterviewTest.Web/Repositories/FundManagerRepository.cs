@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using FundsLibrary.InterviewTest.Common;
-using System.Configuration;
 using System.Web.Configuration;
+using FundsLibrary.InterviewTest.Service.Models;
 
 namespace FundsLibrary.InterviewTest.Web.Repositories
 {

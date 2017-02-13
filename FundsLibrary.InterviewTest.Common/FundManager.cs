@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace FundsLibrary.InterviewTest.Common
 {
@@ -9,6 +10,9 @@ namespace FundsLibrary.InterviewTest.Common
         public DateTime ManagedSince { get; set; }
         public string Biography { get; set; }
         public Location Location { get; set; }
-        public Funds Funds { get; set; }
+
+        public string Photo { get; set; }
+        
+        public List<SecurityFunds> SecurityFunds { get; set; }
     }
 }

@@ -278,6 +278,10 @@
       <Project>{06F4DEE6-76A0-4BC2-B7A8-D25CDDC6D7F9}</Project>
       <Name>FundsLibrary.InterviewTest.Common</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FundsLibrary.InterviewTest.Service\FundsLibrary.InterviewTest.Service.csproj">
+      <Project>{6edd000c-a1df-4455-9091-23d987082383}</Project>
+      <Name>FundsLibrary.InterviewTest.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
